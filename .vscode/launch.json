@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Mojify",
+      "env": {
+        "DEBUG": "*"
+      },
+      "args": [
+        "https://pbs.twimg.com/profile_images/833970306339446784/83MO53R9_400x400.jpg"
+      ],
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}/bin/mojify.js",
+      "outFiles": ["${workspaceRoot}/bin/mojify.js"]
+    },
+    {
+      "name": "Attach to JavaScript Functions",
+      "type": "node",
+      "request": "attach",
+      "port": 5858,
+      "protocol": "inspector",
+      "preLaunchTask": "runFunctionsHost"
+    }
+  ]
+}
