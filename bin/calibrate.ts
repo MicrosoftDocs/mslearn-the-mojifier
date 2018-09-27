@@ -9,6 +9,14 @@ require("dotenv").config();
 const API_URL = process.env["FACE_API_URL"];
 const API_KEY = process.env["FACE_API_KEY"];
 
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+process.on("unhandledRejection", (reason, p) => {
+  console.warn("Unhandled Rejection at: Promise", p, "reason:", reason);
+});
+
 async function getEmotion(emoji) {
   let trainEmojiFileName = path.resolve(
     __dirname,
@@ -30,9 +38,18 @@ async function getEmotion(emoji) {
     body: buffer
   });
   let data = await response.json();
-  if (data.length > 0) {
-    return data[0].faceAttributes.emotion;
+
+  if (data.error) {
+    if (data.error.code === "RateLimitExceeded") {
+      console.debug(JSON.stringify(data));
+      console.error("RateLimitExceeded waiting 30 seconds and trying again");
+      await timeout(30000);
+      return await getEmotion(emoji);
+    } else {
+      throw data.error;
+    }
   }
+  return data[0].faceAttributes.emotion;
 }
 
 const EMOJIS_TO_TRAIN = [
