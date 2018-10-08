@@ -56,7 +56,7 @@ async function createMojifiedImage(imageUrl, faces) {
   let compositeImage = sourceImage;
 
   for (let face of faces) {
-    const mojiIcon = face.mojiIcon;
+    const mojiName = face.mojiName;
     const faceHeight = face.faceRectangle.height;
     const faceWidth = face.faceRectangle.width;
     const faceTop = face.faceRectangle.top;
@@ -65,7 +65,7 @@ async function createMojifiedImage(imageUrl, faces) {
     // Load the emoji from disk
     let mojiPath = path.resolve(
       __dirname,
-      "../shared/emojis/" + mojiIcon + ".png"
+      "../shared/emojis/" + mojiName + ".png"
     );
     let emojiImage = await Jimp.read(mojiPath);
 
