@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import * as path from "path";
 import { EmotivePoint } from "../shared/models/emotivePoint";
 import { Face } from "../shared/models/faces";
+import * as emojiConvert from "emoji-dictionary";
 
 require("dotenv").config();
 
@@ -81,7 +82,9 @@ async function main() {
 
   for (let emoji of EMOJIS_TO_TRAIN) {
     console.log(`Processing ${emoji}`);
-    let emotion = await getEmotion(emoji);
+    // Given an emoji like 😴 returns the word version, like 'sleepy'
+    let emojiName = emojiConvert.getName(emoji);
+    let emotion = await getEmotion(emojiName);
     // console.debug(emotion);
     let point = new EmotivePoint(emotion);
     let face = new Face(point, null);

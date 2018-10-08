@@ -1,5 +1,6 @@
 import { MOJIS } from "./mojis";
 import { Rect } from "./rect";
+import * as emoji from "emoji-dictionary";
 
 export class Face {
   emotivePoint;
@@ -12,6 +13,11 @@ export class Face {
     this.faceRectangle = faceRectangle;
     this.moji = this.chooseMoji(this.emotivePoint);
     this.mojiIcon = this.moji.emojiIcon;
+  }
+
+  get mojiName() {
+    // Given an emoji like 😴 returns the word version, like 'sleepy'
+    return emoji.getName(this.mojiIcon);
   }
 
   chooseMoji(point) {
