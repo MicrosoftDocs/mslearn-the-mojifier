@@ -1,11 +1,7 @@
 import * as querystring from "querystring";
 
-process.on("unhandledRejection", (reason, p) => {
-  console.warn("Unhandled Rejection at: Promise", p, "reason:", reason);
-});
-
-export async function index(context, req) {
-  context.log("RespondToSlackCommand HTTP trigger");
+export function index(context, req) {
+  context.log(`RespondToSlackCommand HTTP trigger`);
 
   context.res = {
     headers: {
@@ -15,13 +11,13 @@ export async function index(context, req) {
   };
 
   const { text } = querystring.parse(req.body);
-  let message = "Your mojified image my liege..";
+
+  let message = "Your mojified image my liege...";
   if (!text) {
     message = "You must provide an image to mojify";
   }
 
-  const mojifyUrl =
-    req.url.substr(0, req.url.lastIndexOf("/")) + "/MojifyImage";
+  const mojifyUrl = req.originalUrl.substr(0, req.originalUrl.lastIndexOf("/")) + "/MojifyImage";
 
   context.res.body = {
     response_type: "in_channel",

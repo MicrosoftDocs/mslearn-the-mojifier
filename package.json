@@ -16,7 +16,7 @@
     "dotenv": "^6.0.0",
     "emoji-dictionary": "^1.0.9",
     "euclidean-distance": "^1.0.0",
-    "jimp": "^0.2.28",
+    "jimp": "^0.5.3",
     "node-fetch": "^2.2.0",
     "typescript": "^2.9.2"
   }
