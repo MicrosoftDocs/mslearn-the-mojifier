@@ -2,9 +2,6 @@ import Jimp = require("jimp");
 import * as path from "path";
 import * as FaceApi from "../shared/faceapi";
 
-const API_URL = process.env["FACE_API_URL"];
-const API_KEY = process.env["FACE_API_KEY"];
-
 async function createMojifiedImage(context, imageUrl, faces) {
   let sourceImage = await Jimp.read(imageUrl);
   // Create a composite image, we will "append" to this composite an emoji image for each face found
@@ -58,7 +55,7 @@ export async function index(context, req) {
 
   if (!imageUrl) {
     let message = `imageUrl is required`;
-    context.log.error(message);
+    context.log(message);
     context.res = { status: 400, body: message }
   } else {
     context.log(`Called with imageUrl: "${imageUrl}"`);
@@ -75,7 +72,7 @@ export async function index(context, req) {
       }
     } catch (err) {
       let message = `There was an error processing this image: ${err.message}`;
-      context.log.error(message);
+      context.log(message);
       context.res = { status: 400, body: message };
     }
   }
