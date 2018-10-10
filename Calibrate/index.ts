@@ -60,7 +60,8 @@ async function getCalibrationArrayString(context) {
 export async function index(context, req) {
     context.log(`Calibrate HTTP trigger`);
 
-    const message = await getCalibrationArrayString(context);
+    const array = await getCalibrationArrayString(context);
+    const body = {MOJIS: array};
 
     context.res = {
       status: 200,
