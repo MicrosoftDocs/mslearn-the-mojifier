@@ -68,6 +68,6 @@ export async function index(context, req) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: message
+      body: body
     };
 }
